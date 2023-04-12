@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
+import "./assets/css/index.css";
 import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     element: <RulesAndPolicies />,
   },
   {
-    path: "game-information",
+    path: "games",
     element: <GameInformation />,
   },
   {
