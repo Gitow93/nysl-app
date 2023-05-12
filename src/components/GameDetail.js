@@ -31,7 +31,7 @@ const GameDetail = () => {
 
     const groupedGames = [];
     dates.forEach((date) => {
-      games[date].games.map((game) => {
+      games[date].games.forEach((game) => {
         groupedGames.push(game);
       });
     });
