@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app";
 import { getDatabase } from "firebase/database";
+import { getStorage } from "firebase/storage";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
@@ -13,13 +14,16 @@ const firebaseConfig = {
   appId: "nysl-app-8cd7e",
 };
 
-const app = firebase.initializeApp(firebaseConfig);
+export const app = firebase.initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 
 export const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
 export const auth = firebase.auth();
+
+export const storage = getStorage(app);
+
 /* 
 export const signInWithGoogle = () => {
   return auth.signInWithPopup(provider);

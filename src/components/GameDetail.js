@@ -49,7 +49,12 @@ const GameDetail = () => {
     <>
       <Template title="Game Detail">
         <h2>Fall Schedule</h2>
-        {user && <Link to={`/messages/${game.id}`}>Go to messages</Link>}
+        {user && (
+          <>
+            <Link to={`/messages/${game.id}`}>Go to messages</Link>
+            <Link to={`/photos/${game.id}`}>Go to photos</Link>
+          </>
+        )}
         <div className="game__detail">
           <p>{game.team}</p>
           <p>{game.location}</p>
