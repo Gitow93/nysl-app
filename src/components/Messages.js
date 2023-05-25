@@ -5,6 +5,7 @@ import "./../assets/css/messages.css";
 import { db } from "./../service/firebase";
 import { onValue, ref, remove, set } from "firebase/database";
 import firebase from "firebase/compat/app";
+import deleteIcon from "./../assets/images/delete.png";
 
 const Messages = () => {
   const currentUser = firebase.auth().currentUser;
@@ -72,11 +73,23 @@ const Messages = () => {
         <div className="messages__container">
           {messages.map((message, index) => (
             <div key={index}>
-              <p>{message.text}</p>
-              <p>{message.author}</p>
-              <p>{message.timestamp}</p>
-              <button onClick={() => deleteFromDatabase(index + 1)}>
-                Remove
+              <p className="author">{message.author}</p>
+              <p className="text">{message.text}</p>
+              <p className="time">{message.timestamp}</p>
+              <button
+                className="remove"
+                onClick={() => deleteFromDatabase(index + 1)}
+              >
+                {
+                  <img
+                    src={deleteIcon}
+                    alt={deleteIcon}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                    }}
+                  />
+                }
               </button>
             </div>
           ))}

@@ -3,14 +3,13 @@
   height: 150px;
 }
 
-.home__content {
-  text-align: center;
-}
-
 .event__date {
   font-style: italic;
+  border-bottom: 2px solid black;
+  width: fit-content;
 }
 
 .event__name {
+  text-align: justify;
   margin-left: 1.5rem;
 }

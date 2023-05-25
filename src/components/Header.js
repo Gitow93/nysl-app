@@ -1,19 +1,42 @@
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../assets/css/header.css";
+import homeIcon from "../assets/images/home.png";
+import aboutIcon from "../assets/images/about.png";
+import contactIcon from "../assets/images/contact.png";
+import rulesIcon from "../assets/images/rulesandpolicies.png";
+import gameIcon from "../assets/images/gameinfo.png";
 
 const Header = () => {
   const location = useLocation();
   const menu = [
-    { name: "Home", link: "/", isActive: false },
-    { name: "About", link: "/about", isActive: false },
-    { name: "Contact", link: "/contact", isActive: false },
+    {
+      name: "Home",
+      icon: homeIcon,
+      link: "/",
+      isActive: false,
+    },
+    {
+      name: "About",
+      icon: aboutIcon,
+      link: "/about",
+      isActive: false,
+    },
+    {
+      name: "Contact",
+      icon: contactIcon,
+      link: "/contact",
+      isActive: false,
+    },
     {
       name: "Rules and Policies",
+      icon: rulesIcon,
       link: "/rules-and-policies",
       isActive: false,
     },
     {
       name: "Game Information",
+      icon: gameIcon,
       link: "/games",
       isActive: false,
     },
@@ -27,7 +50,9 @@ const Header = () => {
 
   return (
     <header>
-      <h1>Northside Youth Soccer League</h1>
+      <div className="header__title">
+        <h1>Northside Youth Soccer League</h1>
+      </div>
       <nav>
         <ul className="list">
           {menu.map((menuItem, index) => (
@@ -36,7 +61,15 @@ const Header = () => {
               className={`menu__link ${menuItem.isActive ? "active" : ""}`}
               to={menuItem.link}
             >
-              <li>{menuItem.name}</li>
+              <li>
+                {menuItem.icon && (
+                  <img
+                    src={menuItem.icon}
+                    alt={menuItem.name}
+                    style={{ width: "20px", height: "20px" }}
+                  />
+                )}
+              </li>
             </Link>
           ))}
         </ul>

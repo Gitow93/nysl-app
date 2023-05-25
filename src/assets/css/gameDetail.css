@@ -1,4 +1,14 @@
 .game__detail {
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
+  border-bottom: 2px solid black;
+}
+
+p {
+  margin-top: 10px;
+}
+
+.link__1 {
+  margin-right: 30px;
 }

@@ -7,13 +7,15 @@ const Template = ({ title, children }) => {
   return (
     <>
       <Header />
-      <h2 className="title">{title}</h2>
-      <div className="content">
+      <div className="subheader">
         <img
           className="logo"
           src={nysl_logo}
           alt="northside youth soccer league logo"
         />
+        <h2 className="title">{title}</h2>
+      </div>
+      <div className="content">
         <div>{children}</div>
       </div>
       <LoginButton />

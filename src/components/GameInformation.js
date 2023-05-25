@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Template from "./Template";
 import { information } from "./../assets/mocks/games.js";
 import "./../assets/css/gameInformation.css";
+import detailIcon from "./../assets/images/detail.png";
 
 const GameInformation = () => {
   const gamesInfo = information;
@@ -21,6 +22,7 @@ const GameInformation = () => {
                 <th scope="col">Teams</th>
                 <th scope="col">Location</th>
                 <th scope="col">Times</th>
+                <th scope="col">Info</th>
               </tr>
             </thead>
             <tbody>
@@ -29,15 +31,28 @@ const GameInformation = () => {
                   {gamesInfo.games[month][date].games.map(
                     (gameDetail, index) => (
                       <tr key={date + index}>
+                        {" "}
                         <th>{index === 0 ? date : ""}</th>
+                        <td className="cell">{gameDetail.team}</td>
+                        <td className="cell">{gameDetail.location}</td>
+                        <td className="cell">{gameDetail.time}</td>
                         <Link
                           to={`/games/${month}/${gameDetail.id}`}
                           className="game__link"
                         >
-                          <td>{gameDetail.team}</td>
+                          <td className="cell-info">
+                            {
+                              <img
+                                src={detailIcon}
+                                alt={detailIcon}
+                                style={{
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            }
+                          </td>
                         </Link>
-                        <td>{gameDetail.location}</td>
-                        <td>{gameDetail.time}</td>
                       </tr>
                     )
                   )}

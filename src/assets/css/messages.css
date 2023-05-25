@@ -1,17 +1,41 @@
 .messages__header {
   margin: 0;
-  width: 765px;
+  width: auto;
   text-align: center;
 }
 
 .messages__container {
-  width: 765px;
+  width: 350px;
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  background-image: url("./../images/background-chat.jpg");
+}
+
+.author {
+  position: relative;
+  left: 5px;
+  text-align: justify;
+  background-color: aquamarine;
+  width: fit-content;
+}
+
+.text {
+  background-color: lawngreen;
+  text-align: end;
+  width: fit-content;
+  margin-left: 5px;
+}
+
+.remove {
+  opacity: 50%;
+  margin-left: 20px;
 }
 
 .messages__button {
   display: flex;
   justify-content: end;
+  margin-top: 20px;
 }
 
 .messages__text {
