@@ -10,7 +10,6 @@ import deleteIcon from "./../assets/images/delete.png";
 const Messages = () => {
   const currentUser = firebase.auth().currentUser;
   const { id } = useParams();
-  // const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [sortedMessages, setSortedMessages] = useState([]);
 
@@ -44,7 +43,7 @@ const Messages = () => {
 
   const handleMessageSubmit = (e) => {
     e.preventDefault();
-    
+
     const message = {
       author: currentUser.multiFactor.user.email,
       text: inputValue,
@@ -69,6 +68,11 @@ const Messages = () => {
     return formattedMessages;
   };
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString();
+  };
+
   return (
     <Template title="Messages">
       <div>
@@ -79,7 +83,7 @@ const Messages = () => {
             <div key={index}>
               <p className="author">{message.author}</p>
               <p className="text">{message.text}</p>
-              <p className="time">{message.timestamp}</p>
+              <p className="time">{formatTimestamp(message.timestamp)}</p>
               <button
                 className="remove"
                 onClick={() => deleteFromDatabase(index + 1)}
