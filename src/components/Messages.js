@@ -12,6 +12,7 @@ const Messages = () => {
   const { id } = useParams();
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [sortedMessages, setSortedMessages] = useState([]);
 
   useEffect(() => {
     readFromDatabase();
@@ -23,8 +24,9 @@ const Messages = () => {
       const data = snapshot.val();
       const filteredMessages = filterMessages(data);
       const formattedMessages = formatMessages(filteredMessages);
-      //añadir un sort. para ordenarlos por timestamp
-      setMessages(formattedMessages);
+      const sorted = formattedMessages.sort((a, b) => a.timestamp - b.timestamp);
+    setSortedMessages(sorted);
+
     });
   };
 
@@ -71,7 +73,7 @@ const Messages = () => {
         <h1 className="messages__header">Messages</h1>
 
         <div className="messages__container">
-          {messages.map((message, index) => (
+          {sortedMessages.map((message, index) => (
             <div key={index}>
               <p className="author">{message.author}</p>
               <p className="text">{message.text}</p>
