@@ -1,24 +1,28 @@
-header {
-  height: 320px;
-  background-image: url("./../images/design1_image1.jpg");
-  background-size: cover;
-  background-position: center;
-  color: white;
-  position: relative;
+.header__title {
+  background-color: rgb(35, 50, 97);
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 5px solid rgb(117, 253, 12);
+  color: rgb(165, 208, 246);
+  height: 75px;
 }
 
-.header__title {
-  background-color: rgb(35, 50, 97, 0.6);
-  display: flex;
-  justify-content: center;
-  border: 2px solid rgb(127, 238, 41);
-  color: rgb(127, 238, 41);
+.background_img {
+  height: 50%;
+  width: 100%;
+  margin: 0;
 }
 
 h1 {
   font-size: 25px;
   height: 40px;
-  margin-top: 5px;
+  margin: 5px 20px 5px 5px;
+}
+
+.menu__icon {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 }
 
 a {
@@ -26,9 +30,9 @@ a {
 }
 
 nav {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  position: fixed;
+  top: 40px;
+  right: 15px;
   margin: 0 1rem 1rem 0;
 }
 
@@ -39,20 +43,22 @@ nav {
   display: grid;
   grid-template-columns: auto;
   text-align: center;
-  gap: 0.5rem;
+  gap: 0.2rem;
   font-size: 11px;
   list-style: none;
 }
 
 .menu__link {
-  background: rgb(127, 238, 41);
+  background: rgb(165, 208, 246);
   padding: 0.5rem;
   color: rgb(35, 50, 97);
   border: 4px solid rgb(35, 50, 97);
+  border-radius: 5px;
 }
 
 .active {
   background: rgb(35, 50, 97);
-  color: rgb(127, 238, 41);
-  border: 4px solid rgb(127, 238, 41);
+  color: rgb(165, 208, 246);
+  border: 4px solid rgb(165, 208, 246);
+  border-radius: 5px;
 }
