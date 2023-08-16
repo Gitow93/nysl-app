@@ -5,7 +5,7 @@ import "./../assets/css/messages.css";
 import { db } from "./../service/firebase";
 import { onValue, ref, remove, set } from "firebase/database";
 import firebase from "firebase/compat/app";
-import deleteIcon from "./../assets/images/delete.png";
+import deleteIcon from "./../assets/images/delete_icon.png";
 
 const Messages = () => {
   const currentUser = firebase.auth().currentUser;
@@ -29,7 +29,8 @@ const Messages = () => {
     });
   };
 
-  const deleteFromDatabase = (messageId) => {
+  const deleteFromDatabase = (message) => {
+    const messageId = message.timestamp;
     const dbRef = ref(db, `/messages/game-${id}/message-${messageId}`);
     remove(dbRef).then(() => console.log("Deleted"));
   };
@@ -68,39 +69,66 @@ const Messages = () => {
     return formattedMessages;
   };
 
-  const formatTimestamp = (timestamp) => {
+  const formatTime = (timestamp) => {
     const date = new Date(timestamp);
-    return date.toLocaleString();
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
+  
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString();
+  };
+
+  const getUsernameFromEmail = (email) => {
+    const atIndex = email.indexOf("@");
+    return email.substring(0, atIndex);
+  };
+
+  const groupedMessages = [];
+
+sortedMessages.forEach((message) => {
+  const existingGroup = groupedMessages.find(
+    (group) =>
+      group.author === message.author &&
+      formatDate(group.messages[0].timestamp) === formatDate(message.timestamp)
+  );
+
+  if (existingGroup) {
+    existingGroup.messages.push(message);
+  } else {
+    groupedMessages.push({
+      author: message.author,
+      messages: [message],
+    });
+  }
+});
 
   return (
     <Template title="Messages">
       <div>
-        <h1 className="messages__header">Messages</h1>
 
         <div className="messages__container">
-          {sortedMessages.map((message, index) => (
-            <div key={index}>
-              <p className="author">{message.author}</p>
-              <p className="text">{message.text}</p>
-              <p className="time">{formatTimestamp(message.timestamp)}</p>
-              <button
-                className="remove"
-                onClick={() => deleteFromDatabase(index + 1)}
-              >
-                {
-                  <img
-                    src={deleteIcon}
-                    alt={deleteIcon}
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                }
-              </button>
-            </div>
-          ))}
+        {groupedMessages.map((group, index) => (
+  <div key={index}>
+    <div className="message__header">
+      <p className="author">{getUsernameFromEmail(group.author)}</p>
+      <p className="date">{formatDate(group.messages[0].timestamp)}</p>
+    </div>
+    <div className="text__container">
+      {group.messages.map((message, msgIndex) => (
+        <div className="text__message" key={msgIndex}>
+          <div className="message">
+          <p className="text">{message.text}</p>
+          <p className="time">{formatTime(message.timestamp)}</p>
+          </div>
+          <button className="remove" onClick={() => deleteFromDatabase(message)}>
+    <img className="delete_icon" src={deleteIcon} alt={deleteIcon}/>
+  </button>
+        </div>
+      ))}
+    </div>
+  </div>
+))}
         </div>
 
         <form className="messages__button" onSubmit={handleMessageSubmit}>
