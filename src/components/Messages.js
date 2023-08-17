@@ -6,12 +6,15 @@ import { db } from "./../service/firebase";
 import { onValue, ref, remove, set } from "firebase/database";
 import firebase from "firebase/compat/app";
 import deleteIcon from "./../assets/images/delete_icon.png";
+import {v4 as uuidv4} from 'uuid';
+
 
 const Messages = () => {
   const currentUser = firebase.auth().currentUser;
   const { id } = useParams();
   const [inputValue, setInputValue] = useState("");
   const [sortedMessages, setSortedMessages] = useState([]);
+  
 
   useEffect(() => {
     readFromDatabase();
@@ -29,16 +32,12 @@ const Messages = () => {
     });
   };
 
-  const deleteFromDatabase = (message) => {
-    const messageId = message.timestamp;
-    const dbRef = ref(db, `/messages/game-${id}/message-${messageId}`);
-    remove(dbRef).then(() => console.log("Deleted"));
-  };
-
+  
   const addNewMessageToDatabase = (message) => {
+    const messageUuid = uuidv4();
     set(
-      ref(db, `/messages/game-${id}/message-${Math.floor(Math.random() * 10)}`),
-      message
+      ref(db, `/messages/game-${id}/message-${messageUuid}`),
+      { ...message, messageUuid }
     );
   };
 
@@ -54,6 +53,11 @@ const Messages = () => {
     addNewMessageToDatabase(message);
 
     setInputValue("");
+  };
+
+  const handleDeleteMessage = (message) => {
+    const messageRef = ref(db, `/messages/game-${id}/message-${message.messageUuid}`);
+    remove(messageRef);
   };
 
   const filterMessages = (messages) => {
@@ -86,49 +90,45 @@ const Messages = () => {
 
   const groupedMessages = [];
 
-sortedMessages.forEach((message) => {
-  const existingGroup = groupedMessages.find(
-    (group) =>
-      group.author === message.author &&
-      formatDate(group.messages[0].timestamp) === formatDate(message.timestamp)
-  );
-
-  if (existingGroup) {
-    existingGroup.messages.push(message);
-  } else {
-    groupedMessages.push({
-      author: message.author,
-      messages: [message],
-    });
-  }
-});
+  let currentAuthor = null;
+  let currentGroup = null;
+  
+  sortedMessages.forEach((message) => {
+    if (message.author !== currentAuthor) {
+      currentAuthor = message.author;
+      currentGroup = { author: message.author, messages: [] };
+      groupedMessages.push(currentGroup);
+    }
+    currentGroup.messages.push(message);
+  });
 
   return (
     <Template title="Messages">
       <div>
 
-        <div className="messages__container">
+      <div className="messages__container">
         {groupedMessages.map((group, index) => (
-  <div key={index}>
-    <div className="message__header">
-      <p className="author">{getUsernameFromEmail(group.author)}</p>
-      <p className="date">{formatDate(group.messages[0].timestamp)}</p>
-    </div>
-    <div className="text__container">
-      {group.messages.map((message, msgIndex) => (
-        <div className="text__message" key={msgIndex}>
-          <div className="message">
-          <p className="text">{message.text}</p>
-          <p className="time">{formatTime(message.timestamp)}</p>
+          <div key={index}>
+            <div className="message__header">
+              <p className="author">{getUsernameFromEmail(group.author)}</p>
+              <p className="date">{formatDate(group.messages[0].timestamp)}</p>
+            </div>
+            <div className="text__container">
+              {group.messages.map((message, msgIndex) => (
+                <div className="text__message" key={msgIndex}>
+                  <div className="message">
+                    <p className="text">{message.text}</p>
+                    <p className="time">{formatTime(message.timestamp)}</p>
+                   
+                  </div>
+                  <button className="remove" onClick={() =>handleDeleteMessage(message)}>
+      <img className="delete_icon" src={deleteIcon} alt={deleteIcon} />
+    </button>
+                </div>
+              ))}
+            </div>
           </div>
-          <button className="remove" onClick={() => deleteFromDatabase(message)}>
-    <img className="delete_icon" src={deleteIcon} alt={deleteIcon}/>
-  </button>
-        </div>
-      ))}
-    </div>
-  </div>
-))}
+        ))}
         </div>
 
         <form className="messages__button" onSubmit={handleMessageSubmit}>
