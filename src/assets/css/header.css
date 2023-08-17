@@ -1,10 +1,23 @@
-.header__title {
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.header {
   background-color: rgb(35, 50, 97);
   display: flex;
   justify-content: space-around;
-  border-bottom: 5px solid rgb(117, 253, 12);
+  border-bottom: 5px solid rgb(0, 0, 0);
   color: rgb(165, 208, 246);
   height: 75px;
+}
+
+.header__title {
+  margin-left: 30px;
 }
 
 .background_img {
@@ -22,7 +35,7 @@ h1 {
 .menu__icon {
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 a {
@@ -30,16 +43,12 @@ a {
 }
 
 nav {
-  position: fixed;
-  top: 40px;
-  right: 15px;
-  margin: 0 1rem 1rem 0;
+  position: relative;
+  top: 60%;
+  right: 23%;
 }
 
 .list {
-  position: relative;
-  top: 20px;
-  left: 10px;
   display: grid;
   grid-template-columns: auto;
   text-align: center;

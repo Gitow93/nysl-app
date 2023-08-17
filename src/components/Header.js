@@ -1,88 +1,7 @@
-/* import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../assets/css/header.css";
-import homeIcon from "../assets/images/home.png";
-import aboutIcon from "../assets/images/about.png";
-import contactIcon from "../assets/images/contact.png";
-import rulesIcon from "../assets/images/rulesandpolicies.png";
-import gameIcon from "../assets/images/gameinfo.png";
-
-const Header = () => {
-  const location = useLocation();
-  const menu = [
-    {
-      name: "Home",
-      icon: homeIcon,
-      link: "/",
-      isActive: false,
-    },
-    {
-      name: "About",
-      icon: aboutIcon,
-      link: "/about",
-      isActive: false,
-    },
-    {
-      name: "Contact",
-      icon: contactIcon,
-      link: "/contact",
-      isActive: false,
-    },
-    {
-      name: "Rules and Policies",
-      icon: rulesIcon,
-      link: "/rules-and-policies",
-      isActive: false,
-    },
-    {
-      name: "Game Information",
-      icon: gameIcon,
-      link: "/games",
-      isActive: false,
-    },
-  ];
-
-  menu.forEach((menuItem) =>
-    menuItem.link === location.pathname
-      ? (menuItem.isActive = true)
-      : (menuItem.isActive = false)
-  );
-
-  return (
-    <header>
-      <div className="header__title">
-        <h1>Northside Youth Soccer League</h1>
-      </div>
-      <nav>
-        <ul className="list">
-          {menu.map((menuItem, index) => (
-            <Link
-              key={index}
-              className={`menu__link ${menuItem.isActive ? "active" : ""}`}
-              to={menuItem.link}
-            >
-              <li>
-                {menuItem.icon && (
-                  <img
-                    src={menuItem.icon}
-                    alt={menuItem.name}
-                    style={{ width: "20px", height: "20px" }}
-                  />
-                )}
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </nav>
-    </header>
-  );
-};
-
-export default Header; */
-
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import "../assets/css/header.css";
+import Spinner from "./Spinner";
 import homeIcon from "../assets/images/home.png";
 import aboutIcon from "../assets/images/about.png";
 import contactIcon from "../assets/images/contact.png";
@@ -93,7 +12,8 @@ import backImage from "../assets/images/design1_image1.jpg";
 
 const Header = () => {
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar si el menú está abierto
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const menu = [
     {
@@ -127,25 +47,38 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+useEffect(() => { 
+  //This code is used to simulate the spinner that would be shown when waiting for the response to an API call
+    setIsLoading(true);
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [location.pathname]);
+
   return (
-    <header className="header">
-      <div className="header__title">
-      <h1>Northside Youth Soccer League</h1>
-      <div className="menu__icon" onClick={toggleMenu}>
+    <header >
+    {isLoading && <Spinner />}
+
+      <div className="header">
+       <div className="menu__icon" onClick={toggleMenu}>
         <img src={menuIcon} alt="Menu" style={{ width:"40px", height:"40px"}} />
       </div>
+      
+     
       {isMenuOpen && (
         <nav>
           <ul className="list">
             {menu.map((menuItem, index) => (
-              <li
+              <Link to={menuItem.link}>
+                <li
                 key={index}
                 className={`menu__link ${
                   menuItem.link === location.pathname ? "active" : ""
                 }`}
                 onClick={toggleMenu}
               >
-                <Link to={menuItem.link}>
+                
                   {menuItem.icon && (
                     <img
                       src={menuItem.icon}
@@ -154,12 +87,15 @@ const Header = () => {
                     />
                   )}
                   {menuItem.name}
-                </Link>
+                
               </li>
+              </Link>
             ))}
           </ul>
         </nav>
       )}
+
+      <h1 className="header__title">Northside Youth Soccer League</h1>
       </div>
       <img className="background_img" src={backImage} alt={backImage} />
     </header>
