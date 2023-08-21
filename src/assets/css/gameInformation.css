@@ -6,23 +6,25 @@
   display: flex;
   justify-content: space-between;
 }
-th {
-  background-color: rgb(35, 50, 97);
-  color: rgb(127, 238, 41);
+
+.game__table,
+.gameInfo_col {
+  background-color: rgb(157, 157, 157);
+  color: rgb(3, 57, 73);
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .game__link {
   display: block;
   text-decoration: none;
 }
+
 .cell {
   margin: 0;
   height: 50px;
-  background-color: rgb(192, 190, 190);
-}
-.cell-info {
-  height: 55.5px;
-  background-color: rgb(53, 53, 235);
+  background-color: rgb(3, 57, 73);
+  color: rgb(163, 255, 21);
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .title {

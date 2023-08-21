@@ -4,17 +4,21 @@ body {
 }
 
 .subheader {
-  background-color: rgb(3, 57, 73);
   display: flex;
   justify-content: space-around;
   text-align: center;
   align-items: center;
+  height: 50px;
+  font-family: "Chewy", cursive;
+  border-top: 2px solid rgb(163, 255, 21);
   border-bottom: 2px solid rgb(163, 255, 21);
+  background-color: rgb(3, 57, 73);
 }
 
 .content {
   text-align: center;
   margin: 1rem 1rem;
+  font-family: "Itim", cursive;
 }
 
 .title {

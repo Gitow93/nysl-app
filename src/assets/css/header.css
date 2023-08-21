@@ -12,6 +12,7 @@
   display: flex;
   justify-content: space-between;
   color: rgb(163, 255, 21);
+  border-bottom: 3px solid rgb(163, 255, 21);
 }
 
 .background_img {
@@ -25,9 +26,9 @@
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
-  margin: 5px;
+  width: 35px;
+  height: 35px;
+  margin: 5px 10px 5px 5px;
 }
 
 .menu__icon {

@@ -20,11 +20,10 @@ const GameInformation = () => {
           <table key={month + index} className="table game__table">
             <thead>
               <tr>
-                <th scope="col">{month.toUpperCase()}</th>
-                <th scope="col">Teams</th>
-                <th scope="col">Location</th>
-                <th scope="col">Times</th>
-
+                <th scope="col" className="gameInfo_col">{month.toUpperCase()}</th>
+                <th scope="col" className="gameInfo_col">Teams</th>
+                <th scope="col" className="gameInfo_col">Location</th>
+                <th scope="col" className="gameInfo_col">Times</th>
               </tr>
             </thead>
             <tbody>
