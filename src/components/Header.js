@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../assets/css/header.css";
 import Spinner from "./Spinner";
+import nysl_logo from "./../assets/images/nysl_logo.png";
 import homeIcon from "../assets/images/home.png";
 import aboutIcon from "../assets/images/about.png";
 import contactIcon from "../assets/images/contact.png";
@@ -62,11 +63,8 @@ useEffect(() => {
 
       <div className="header">
        <div className="menu__icon" onClick={toggleMenu}>
-        <img src={menuIcon} alt="Menu" style={{ width:"40px", height:"40px"}} />
-      </div>
-      
-     
-      {isMenuOpen && (
+        <img className="menu__img" src={menuIcon} alt="Menu" />
+        {isMenuOpen && (
         <nav>
           <ul className="list">
             {menu.map((menuItem, index) => (
@@ -94,8 +92,15 @@ useEffect(() => {
           </ul>
         </nav>
       )}
-
-      <h1 className="header__title">Northside Youth Soccer League</h1>
+      </div>
+      <div className="NYSL_header">
+      <img
+          className="logo"
+          src={nysl_logo}
+          alt="northside youth soccer league logo"
+        />
+      
+      </div>
       </div>
       <img className="background_img" src={backImage} alt={backImage} />
     </header>
