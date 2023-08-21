@@ -1,13 +1,15 @@
-.subheader {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 5px solid black;
+body {
+  background-color: rgb(3, 57, 73);
+  color: rgb(163, 255, 21);
 }
 
-.logo {
-  width: 75px;
-  height: 75px;
-  margin: 1rem;
+.subheader {
+  background-color: rgb(3, 57, 73);
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  border-bottom: 2px solid rgb(163, 255, 21);
 }
 
 .content {
@@ -18,10 +20,8 @@
 .title {
   display: flex;
   justify-content: center;
-  height: 20px;
-  width: 75%;
   font-size: 1.6rem;
-  margin-top: 2.5rem;
+  color: rgb(163, 255, 21);
 }
 
 @media all and (min-width: 768px) {
