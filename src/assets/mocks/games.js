@@ -60,7 +60,7 @@ export const information = {
           {
             id: 8,
             team: "U2 and U6",
-            location: " Howard A Yeager",
+            location: "Howard A Yeager",
             time: "1.00 p.m.",
           },
         ],

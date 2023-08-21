@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Template from "./Template";
 import { information } from "./../assets/mocks/games.js";
 import "./../assets/css/gameInformation.css";
-import detailIcon from "./../assets/images/detail.png";
+
 
 const GameInformation = () => {
   const gamesInfo = information;
   const months = Object.keys(gamesInfo.games);
   const locations = Object.keys(gamesInfo.locations);
+  const navigate = useNavigate();
+  const goToGameDetail = (month, gameId) =>  navigate(`/games/${month}/${gameId}`);
   return (
     <>
       <Template title="NYSL Game Information">
@@ -22,7 +24,7 @@ const GameInformation = () => {
                 <th scope="col">Teams</th>
                 <th scope="col">Location</th>
                 <th scope="col">Times</th>
-                <th scope="col">Info</th>
+
               </tr>
             </thead>
             <tbody>
@@ -30,29 +32,14 @@ const GameInformation = () => {
                 <React.Fragment key={index}>
                   {gamesInfo.games[month][date].games.map(
                     (gameDetail, index) => (
-                      <tr key={date + index}>
+                      <tr onClick={()=>goToGameDetail(month,gameDetail.id)} key={date + index}>
                         {" "}
                         <th>{index === 0 ? date : ""}</th>
+                       
                         <td className="cell">{gameDetail.team}</td>
                         <td className="cell">{gameDetail.location}</td>
                         <td className="cell">{gameDetail.time}</td>
-                        <Link
-                          to={`/games/${month}/${gameDetail.id}`}
-                          className="game__link"
-                        >
-                          <td className="cell-info">
-                            {
-                              <img
-                                src={detailIcon}
-                                alt={detailIcon}
-                                style={{
-                                  width: "20px",
-                                  height: "20px",
-                                }}
-                              />
-                            }
-                          </td>
-                        </Link>
+
                       </tr>
                     )
                   )}
