@@ -5,10 +5,16 @@
   border-bottom: 2px solid black;
 }
 
-p {
-  margin-top: 10px;
+a {
+  color: aqua;
 }
 
-.link__1 {
-  margin-right: 30px;
+.links__container {
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: space-around;
+}
+
+p {
+  margin-top: 10px;
 }

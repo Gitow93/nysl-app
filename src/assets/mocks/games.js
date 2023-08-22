@@ -82,7 +82,7 @@ export const information = {
           {
             id: 10,
             team: "U2 and U5",
-            location: " Marjorie P Hart",
+            location: "Marjorie P Hart",
             time: "9:30 a.m.",
           },
           {
@@ -98,7 +98,7 @@ export const information = {
           {
             id: 12,
             team: "U3 and U4",
-            location: " Howard A Yeager",
+            location: "Howard A Yeager",
             time: "9:30 a.m.",
           },
           {

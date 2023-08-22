@@ -9,6 +9,7 @@ import {
 } from "firebase/storage";
 import { db } from "./../service/firebase";
 import { ref, set, onValue } from "firebase/database";
+import {v4 as uuidv4} from 'uuid';
 
 const GamePictures = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const GamePictures = () => {
 
   const uploadPicture = (event) => {
     const file = event.target.files[0];
-    const pictureId = Math.floor(Math.random() * 10);
+    const pictureId = uuidv4();
     const pictureRef = storageRef(
       storage,
       `/pictures/game-${id}/picture-${pictureId}`
@@ -63,7 +64,6 @@ const GamePictures = () => {
             type="file"
             id="avatar"
             name="avatar"
-            accept="image/png, image/jpeg"
             onChange={uploadPicture}
           />
         </div>

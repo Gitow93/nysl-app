@@ -1,7 +1,5 @@
-.messages__header {
-  margin: 0;
-  width: auto;
-  text-align: center;
+.links__container {
+  margin: 5px;
 }
 
 .messages__container {
@@ -26,6 +24,7 @@
 .text__message {
   display: flex;
   justify-content: space-between;
+  color: rgb(0, 0, 0);
 }
 
 .message {

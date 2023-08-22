@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Template from "./Template";
 import "./../assets/css/messages.css";
 import { db } from "./../service/firebase";
@@ -11,6 +11,7 @@ import {v4 as uuidv4} from 'uuid';
 
 const Messages = () => {
   const currentUser = firebase.auth().currentUser;
+  const [game, setGame] = useState({});
   const { id } = useParams();
   const [inputValue, setInputValue] = useState("");
   const [sortedMessages, setSortedMessages] = useState([]);
@@ -105,7 +106,6 @@ const Messages = () => {
   return (
     <Template title="Messages">
       <div>
-
       <div className="messages__container">
         {groupedMessages.map((group, index) => (
           <div key={index}>
@@ -140,7 +140,15 @@ const Messages = () => {
           />
           <button type="submit">Send</button>
         </form>
-      </div>
+
+        <div className="links__container">
+            <Link to="/games">Games
+            </Link>
+        </div>
+            <Link to={`/photos/${game.id}`}>
+              Go to photos
+            </Link>
+        </div>
     </Template>
   );
 };
