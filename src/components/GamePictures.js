@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Template from "./Template";
+import "./../assets/css/gamePicture.css";
 import { storage } from "./../service/firebase";
 import {
   ref as storageRef,
@@ -9,13 +10,19 @@ import {
 } from "firebase/storage";
 import { db } from "./../service/firebase";
 import { ref, set, onValue } from "firebase/database";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const GamePictures = () => {
   const { id } = useParams();
   const [pictures, setPictures] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    readFromDatabase();
+  }, [id]);
 
   const uploadPicture = (event) => {
+    setError(null); 
     const file = event.target.files[0];
     const pictureId = uuidv4();
     const pictureRef = storageRef(
@@ -24,34 +31,45 @@ const GamePictures = () => {
     );
 
     const uploadTask = uploadBytesResumable(pictureRef, file);
-    uploadTask.on("state_changed", () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-        savePictureUrl(url, pictureId);
-      });
+    uploadTask.on("state_changed", null, (error) => {
+      setError("Error uploading picture: " + error.message);
+    }, () => {
+      getDownloadURL(uploadTask.snapshot.ref)
+        .then((url) => {
+          savePictureUrl(url, pictureId);
+        })
+        .catch((error) => {
+          setError("Error getting download URL: " + error.message);
+        });
     });
   };
 
   const savePictureUrl = (url, pictureId) => {
-    set(ref(db, `/pictures/game-${id}/picture-${pictureId}`), url);
-    readFromDatabase();
+    setError(null);
+    set(ref(db, `/pictures/game-${id}/picture-${pictureId}`), url)
+      .then(() => {
+        readFromDatabase();
+      })
+      .catch((error) => {
+        setError("Error saving picture URL: " + error.message);
+      });
   };
 
   const readFromDatabase = () => {
-    const query = ref(db, "pictures");
-    return onValue(query, (snapshot) => {
+    setError(null);
+    const query = ref(db, `pictures/game-${id}`);
+    onValue(query, (snapshot) => {
       const data = snapshot.val();
-      const formattedPictures = formatPictures(data[`game-${id}`]);
-      debugger;
+      const formattedPictures = formatPictures(data);
       setPictures(formattedPictures);
+    }, (error) => {
+      setError("Error reading from database: " + error.message);
     });
-  };
+  };;
 
   const formatPictures = (pictures) => {
-    const picturesKeys = Object.keys(pictures);
-    const formattedPictures = [];
-    picturesKeys.forEach((pictureKey) => {
-      formattedPictures.push(pictures[pictureKey]);
-    });
+    const picturesKeys = pictures ? Object.keys(pictures) : [];
+    const formattedPictures = picturesKeys.map((pictureKey) => pictures[pictureKey]);
     return formattedPictures;
   };
 
@@ -59,17 +77,19 @@ const GamePictures = () => {
     <>
       <Template title="Game Pictures">
         <div>
-          <label htmlFor="avatar">Choose a profile picture:</label>
-          <input
-            type="file"
-            id="avatar"
-            name="avatar"
-            onChange={uploadPicture}
-          />
+          <form>
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              onChange={uploadPicture}
+            />
+          </form>
+          {error && <p>Error: {error}</p>}
         </div>
         <div>
-          {pictures.map((picture) => (
-            <img src={picture} alt="" />
+          {pictures.map((picture, index) => (
+            <img className="game__picture" key={index} src={picture} alt="" />
           ))}
         </div>
       </Template>

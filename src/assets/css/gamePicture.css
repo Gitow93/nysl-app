@@ -1,0 +1,6 @@
+.game__picture {
+  max-width: 300px;
+  margin: 10px;
+  border: 3px solid rgb(76, 251, 61);
+  border-radius: 5px;
+}
