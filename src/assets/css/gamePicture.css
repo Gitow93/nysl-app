@@ -4,3 +4,16 @@
   border: 3px solid rgb(76, 251, 61);
   border-radius: 5px;
 }
+
+.links__container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.link__button {
+  border: 2px solid rgb(76, 251, 61);
+  border-radius: 5px;
+  background-color: rgb(2, 31, 40);
+  color: rgb(101, 247, 205);
+}

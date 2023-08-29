@@ -42,21 +42,21 @@ const GameDetail = () => {
     return gamesByMonth.find((game) => game.id === Number(id));
   };
 
-  // getGamesByMonth();
+  
   return (
     <>
       <Template title="Game Detail">
         <h2>Fall Schedule</h2>
         {user && (
           <div className="links__container">
-            <Link className="link__1" to={`/messages/${game.id}`}>
-              Go to messages
-            </Link>
-            <Link className="link__2" to={`/photos/${game.id}`}>
-              Go to photos
-            </Link>
-            <Link className="link__3" to="/games">Return to games
-            </Link>
+            <button className="link__button"><Link className="link__1" to={`/messages/${game.id}`}>
+              Messages
+            </Link></button>
+            <button className="link__button"><Link className="link__2" to={`/photos/${game.id}`}>
+              Photos
+            </Link></button>
+            <button className="link__button"><Link className="link__3" to="/games">Games
+            </Link></button>
           </div>
         )}
         <div className="game__detail">

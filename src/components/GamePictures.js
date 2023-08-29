@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Template from "./Template";
 import "./../assets/css/gamePicture.css";
 import { storage } from "./../service/firebase";
@@ -16,6 +16,7 @@ const GamePictures = () => {
   const { id } = useParams();
   const [pictures, setPictures] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     readFromDatabase();
@@ -34,6 +35,7 @@ const GamePictures = () => {
     uploadTask.on("state_changed", null, (error) => {
       setError("Error uploading picture: " + error.message);
     }, () => {
+      debugger;
       getDownloadURL(uploadTask.snapshot.ref)
         .then((url) => {
           savePictureUrl(url, pictureId);
@@ -61,7 +63,8 @@ const GamePictures = () => {
     onValue(query, (snapshot) => {
       const data = snapshot.val();
       const formattedPictures = formatPictures(data);
-      setPictures(formattedPictures);
+      setPictures(formattedPictures); 
+      debugger;
     }, (error) => {
       setError("Error reading from database: " + error.message);
     });
@@ -72,6 +75,10 @@ const GamePictures = () => {
     const formattedPictures = picturesKeys.map((pictureKey) => pictures[pictureKey]);
     return formattedPictures;
   };
+
+  const handleGoBack = () => {
+    navigate(-1);
+  }  
 
   return (
     <>
@@ -92,6 +99,13 @@ const GamePictures = () => {
             <img className="game__picture" key={index} src={picture} alt="" />
           ))}
         </div>
+
+        <div className="links__container">
+          <button className="link__button" onClick={handleGoBack}>Go Back</button>
+          <button className="link__button"><Link to="/games">Games</Link></button>
+          <button className="link__button"><Link to={`/messages/${id}`}>Messages</Link></button>
+        </div>
+
       </Template>
     </>
   );

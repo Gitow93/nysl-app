@@ -9,12 +9,19 @@ a {
   color: aqua;
 }
 
+p {
+  margin-top: 10px;
+}
+
 .links__container {
-  display: grid;
-  grid-template-columns: auto;
+  margin-top: 20px;
+  display: flex;
   justify-content: space-around;
 }
 
-p {
-  margin-top: 10px;
+.link__button {
+  border: 2px solid rgb(76, 251, 61);
+  border-radius: 5px;
+  background-color: rgb(2, 31, 40);
+  color: rgb(101, 247, 205);
 }
