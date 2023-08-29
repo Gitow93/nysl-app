@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Template from "./Template";
 import "./../assets/css/messages.css";
 import { db } from "./../service/firebase";
@@ -15,6 +15,7 @@ const Messages = () => {
   const { id } = useParams();
   const [inputValue, setInputValue] = useState("");
   const [sortedMessages, setSortedMessages] = useState([]);
+  const navigate = useNavigate();
   
 
   useEffect(() => {
@@ -103,10 +104,15 @@ const Messages = () => {
     currentGroup.messages.push(message);
   });
 
+  const handleGoBack = () => {
+    navigate(-1); 
+  };
+
   return (
     <Template title="Messages">
       <div>
       <div className="messages__container">
+
         {groupedMessages.map((group, index) => (
           <div key={index}>
             <div className="message__header">
@@ -138,16 +144,19 @@ const Messages = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button type="submit">Send</button>
+          <button className="send__button" type="submit">Send</button>
         </form>
 
         <div className="links__container">
-            <Link to="/games">Games
-            </Link>
+            <button className="link__button" onClick={handleGoBack}>Go Back</button>
+            <button className="link__button">
+              <Link to="/games">Games</Link>
+            </button>
+            <button className="link__button">
+              <Link to={`/photos/${id}`}>Photos</Link>
+            </button>
         </div>
-            <Link to={`/photos/${game.id}`}>
-              Go to photos
-            </Link>
+            
         </div>
     </Template>
   );

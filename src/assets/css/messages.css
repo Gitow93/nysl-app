@@ -1,12 +1,9 @@
-.links__container {
-  margin: 5px;
-}
-
 .messages__container {
   text-align: right;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
+  border: 2px solid rgb(76, 251, 61);
   background-image: url("./../images/background_messages.jpg");
   height: 400px;
   overflow-y: scroll;
@@ -80,4 +77,24 @@
 
 .messages__text {
   width: 100%;
+}
+
+.send__button {
+  border: 2px solid rgb(2, 31, 40);
+  border-radius: 5px;
+  background-color: rgb(101, 247, 205);
+  color: rgb(2, 31, 40);
+}
+
+.links__container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.link__button {
+  border: 2px solid rgb(76, 251, 61);
+  border-radius: 5px;
+  background-color: rgb(2, 31, 40);
+  color: rgb(101, 247, 205);
 }
