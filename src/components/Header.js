@@ -68,7 +68,7 @@ useEffect(() => {
         <nav>
           <ul className="list">
             {menu.map((menuItem, index) => (
-              <Link to={menuItem.link}>
+              <Link key={`header-${index}`} to={menuItem.link}>
                 <li
                 key={index}
                 className={`menu__link ${

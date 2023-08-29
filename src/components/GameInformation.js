@@ -11,6 +11,7 @@ const GameInformation = () => {
   const locations = Object.keys(gamesInfo.locations);
   const navigate = useNavigate();
   const goToGameDetail = (month, gameId) =>  navigate(`/games/${month}/${gameId}`);
+  
   return (
     <>
       <Template title="NYSL Game Information">
@@ -32,7 +33,6 @@ const GameInformation = () => {
                   {gamesInfo.games[month][date].games.map(
                     (gameDetail, index) => (
                       <tr onClick={()=>goToGameDetail(month,gameDetail.id)} key={date + index}>
-                        {" "}
                         <th>{index === 0 ? date : ""}</th>
                        
                         <td className="cell">{gameDetail.team}</td>
@@ -47,7 +47,7 @@ const GameInformation = () => {
             </tbody>
           </table>
         ))}
-        <p>
+        <div>
           <strong>Game locations:</strong>
           {locations.map((location, index) => (
             <div key={index}>
@@ -63,7 +63,7 @@ const GameInformation = () => {
               />
             </div>
           ))}
-        </p>
+        </div>
         <div className="general-info">
           <p>
             <strong>Facility Type: </strong>Outdoor
